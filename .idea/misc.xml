@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/TFX5470H/AndroidStudioProjects/InvestingDisplay/app/src/main/res/drawable/exchange_rate.xml" value="0.1" />
+        <entry key="..\:/Users/TFX5470H/AndroidStudioProjects/InvestingDisplay/app/src/main/res/drawable/ic_baseline_attach_money_24.xml" value="0.1155" />
+        <entry key="..\:/Users/TFX5470H/AndroidStudioProjects/InvestingDisplay/app/src/main/res/drawable/show_chart_button.xml" value="0.1155" />
+        <entry key="..\:/Users/TFX5470H/AndroidStudioProjects/InvestingDisplay/app/src/main/res/drawable/table_inside.xml" value="0.1155" />
+        <entry key="..\:/Users/TFX5470H/AndroidStudioProjects/InvestingDisplay/app/src/main/res/drawable/table_inside_currency.xml" value="0.1155" />
+        <entry key="..\:/Users/TFX5470H/AndroidStudioProjects/InvestingDisplay/app/src/main/res/drawable/table_outside.xml" value="0.1155" />
+        <entry key="..\:/Users/TFX5470H/AndroidStudioProjects/InvestingDisplay/app/src/main/res/layout/activity_currency_list_setting.xml" value="0.264" />
+        <entry key="..\:/Users/TFX5470H/AndroidStudioProjects/InvestingDisplay/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/TFX5470H/AndroidStudioProjects/InvestingDisplay/app/src/main/res/layout/activity_main2.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/TFX5470H/AndroidStudioProjects/InvestingDisplay/app/src/main/res/layout/activity_stock_market.xml" value="0.12545289855072464" />
+        <entry key="..\:/Users/TFX5470H/AndroidStudioProjects/InvestingDisplay/app/src/main/res/menu/item_menu.xml" value="0.17777777777777778" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

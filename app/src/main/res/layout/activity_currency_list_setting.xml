@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+    tools:context=".CurrencyListSettingActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="@dimen/list_page_padding">
+
+        <TextView
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="화면에 표시될 통화를 선택하세요"
+            android:textColor="@color/ColorPrimary"
+            android:textSize="@dimen/page_title_text_size"
+            android:textStyle="bold" />
+
+        <CheckBox
+            android:id="@+id/cb_EUR"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="유럽연합 EUR" />
+
+        <CheckBox
+            android:id="@+id/cb_JPY"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="일본 JPY(100엔)" />
+
+        <CheckBox
+            android:id="@+id/cb_CNY"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="중국 CNY" />
+
+        <CheckBox
+            android:id="@+id/cb_HKD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="홍콩 HKD" />
+
+        <CheckBox
+            android:id="@+id/cb_TWD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="대만 TWD" />
+
+        <CheckBox
+            android:id="@+id/cb_GBP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="영국 GBP" />
+
+        <CheckBox
+            android:id="@+id/OMR"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="오만 OMR" />
+
+        <CheckBox
+            android:id="@+id/cb_CAD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="캐나다 CAD" />
+
+        <CheckBox
+            android:id="@+id/cb_CHF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="스위스 CHF" />
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:backgroundTint="@color/ColorPrimary"
+        android:src="@drawable/list"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:tint="@color/white" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
