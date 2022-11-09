@@ -13,8 +13,8 @@ abstract class Crawler {
         return Jsoup.connect(url).get()
     }
 
-    fun getElements(tag:String): Elements {
+    fun getElements(query:String): Elements {
         val doc = getDoc()
-        return doc.select(tag)
+        return doc.select(query)
     }
 }

@@ -4,9 +4,12 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.createBitmap
 import com.example.investingdisplay.databinding.ActivityMainBinding
@@ -22,6 +25,7 @@ import java.net.URLConnection
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -37,43 +41,42 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-//        val url = "https://finance.naver.com/marketindex/exchangeList.naver"
-//        val userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36"
-//        val referer = "https://finance.naver.com/marketindex/?tabSel=exchange"
-//        Thread(Runnable {
-//            val doc = Jsoup.connect(url)
-//                .userAgent(userAgent)
-//                .referrer(referer)
-//                .get()
-//            val currencies = doc.select("td.tit")
-//            val sales = doc.select("td.sale")
-//            val ele = doc.select("body > div > table > tbody > tr:nth-child(1) > td.sale")
-//            binding.tvPriceUSD.text = ele.text()
-//        }).start()
-
+        val tvList = ArrayList<TextView>()
+        tvList.add(binding.tvPriceUSD)
+        tvList.add(binding.tvPriceEUR)
+        tvList.add(binding.tvPriceJPY)
+        tvList.add(binding.tvPriceCNY)
+        tvList.add(binding.tvPriceHKD)
+        tvList.add(binding.tvPriceTWD)
+        tvList.add(binding.tvPriceGBP)
+        tvList.add(binding.tvPriceOMR)
+        tvList.add(binding.tvPriceCAD)
+        tvList.add(binding.tvPriceCHF)
 
         Thread(Runnable {
-            val url = "https://finance.naver.com/marketindex/exchangeDetail.naver?marketindexCd=FX_USDKRW"
-            val doc = Jsoup.connect(url).get()
-            val ele = doc.select("#content > div.spot > div.flash_area > img")
-            val imgSrc = ele.attr("src")
+            //모델 데이터 가져오기
+            val model = ExchangeRateModel()
+            model.setDataList()
 
-            val imgUrl = URL(imgSrc)
+            for(i in 0..9){
+                tvList.get(i).text = model.dataList.get(i).rate
+            }
+
+            //이미지 가져와서 그리기
+            val imgUrl = URL(model.dataList.get(0).imgSrcMonth3)
             val conn = imgUrl.openConnection()
             conn.connect()
-
             val nSize = conn.contentLength
             val bis = BufferedInputStream(conn.getInputStream(),nSize)
             val imgBitmap = BitmapFactory.decodeStream(bis)
-
             bis.close()
 
+            //이미지 크기 조절
             val matrix = Matrix()
             matrix.preScale(1.0f, 1.5f)
             val temp = Bitmap.createBitmap(imgBitmap, 0,0,imgBitmap.width, imgBitmap.height, matrix, false)
             //val temp = Bitmap.createBitmap(imgBitmap,0,0,100,200)
             runOnUiThread{binding.ivChart.setImageBitmap(temp)}
-
 
         }).start()
 
