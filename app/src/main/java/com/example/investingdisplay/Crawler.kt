@@ -2,6 +2,7 @@ package com.example.investingdisplay
 
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
 
 abstract class Crawler {
@@ -12,8 +13,8 @@ abstract class Crawler {
         return Jsoup.connect(url).get()
     }
 
-    fun getElements(cssQuery:String): Elements {
-        val eles = getDoc().select(cssQuery)
-        return eles
+    fun getElements(tag:String): Elements {
+        val doc = getDoc()
+        return doc.select(tag)
     }
 }

@@ -529,6 +529,7 @@
               app:layout_constraintTop_toBottomOf="@id/table_chart_decade"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:foregroundGravity="top"
               android:src="@drawable/chart_example"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

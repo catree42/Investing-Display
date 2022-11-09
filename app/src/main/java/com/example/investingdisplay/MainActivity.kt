@@ -3,10 +3,12 @@ package com.example.investingdisplay
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.createBitmap
 import com.example.investingdisplay.databinding.ActivityMainBinding
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import org.jsoup.Jsoup
@@ -66,12 +68,13 @@ class MainActivity : AppCompatActivity() {
 
             bis.close()
 
-            if(imgBitmap == null){
-                runOnUiThread{Toast.makeText(this, "null",Toast.LENGTH_SHORT).show()}
-            }else{
-                runOnUiThread{Toast.makeText(this, "not null",Toast.LENGTH_SHORT).show()}
-            }
-            runOnUiThread{binding.ivChart.setImageBitmap(imgBitmap)}
+            val matrix = Matrix()
+            matrix.preScale(1.0f, 1.5f)
+            val temp = Bitmap.createBitmap(imgBitmap, 0,0,imgBitmap.width, imgBitmap.height, matrix, false)
+            //val temp = Bitmap.createBitmap(imgBitmap,0,0,100,200)
+            runOnUiThread{binding.ivChart.setImageBitmap(temp)}
+
+
         }).start()
 
     }
