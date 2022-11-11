@@ -9,5 +9,5 @@ data class ExchangeRateData(
     val imgSrcYear3 : String,
     val imgSrcYear5 : String,
     val imgSrcYear10 : String,
-    val isChecked:Boolean
+    var isChecked:Boolean
 )

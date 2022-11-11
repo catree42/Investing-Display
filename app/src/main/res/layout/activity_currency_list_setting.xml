@@ -25,58 +25,74 @@
             android:textStyle="bold" />
 
         <CheckBox
+            android:id="@+id/cb_USD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="미국 USD"
+            android:checked="true"/>
+
+        <CheckBox
             android:id="@+id/cb_EUR"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="유럽연합 EUR" />
+            android:text="유럽연합 EUR"
+            android:checked="true"/>
 
         <CheckBox
             android:id="@+id/cb_JPY"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="일본 JPY(100엔)" />
+            android:text="일본 JPY(100엔)"
+            android:checked="true"/>
 
         <CheckBox
             android:id="@+id/cb_CNY"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="중국 CNY" />
+            android:text="중국 CNY"
+            android:checked="true"/>
 
         <CheckBox
             android:id="@+id/cb_HKD"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="홍콩 HKD" />
+            android:text="홍콩 HKD"
+            android:checked="true"/>
 
         <CheckBox
             android:id="@+id/cb_TWD"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="대만 TWD" />
+            android:text="대만 TWD"
+            android:checked="true"/>
 
         <CheckBox
             android:id="@+id/cb_GBP"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="영국 GBP" />
+            android:text="영국 GBP"
+            android:checked="true"/>
 
         <CheckBox
-            android:id="@+id/OMR"
+            android:id="@+id/cb_OMR"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="오만 OMR" />
+            android:text="오만 OMR"
+            android:checked="true"/>
 
         <CheckBox
             android:id="@+id/cb_CAD"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="캐나다 CAD" />
+            android:text="캐나다 CAD"
+            android:checked="true"/>
 
         <CheckBox
             android:id="@+id/cb_CHF"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="스위스 CHF" />
+            android:text="스위스 CHF"
+            android:checked="true"/>
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
