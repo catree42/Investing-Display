@@ -9,7 +9,7 @@ class ExchangeRateCrawler : Crawler() {
 
 
     //https://ssl.pstatic.net/imgfinance/chart/marketindex/area/year10/FX_USDKRW.png?sidcode=20221110
-    override val url: String = "https://finance.naver.com/marketindex/exchangeList.naver"
+    override var url: String = "https://finance.naver.com/marketindex/exchangeList.naver"
     val chartURL = "https://ssl.pstatic.net/imgfinance/chart/marketindex/area"
     val currencies = arrayOf("USD", "EUR", "JPY", "CNY", "HKD", "TWD", "GBP", "OMR", "CAD", "CHF")
 

@@ -4,12 +4,301 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StockMarketActivity"
+    android:background="@color/white"
     android:gravity="bottom"
     app:umanoOverlay="false"
     app:umanoPanelHeight="0dp"
+    tools:context=".MainActivity"
     android:id="@+id/slidePanel">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_table"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TableLayout
+                android:id="@+id/table_exchangeRate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="*"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:weightSum="9">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/table_title"
+                        android:gravity="center"
+                        android:text="증시"
+                        android:textSize="@dimen/page_title_text_size"
+                        android:textStyle="bold"
+                        android:layout_weight="2"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/table_title"
+                        android:gravity="center"
+                        android:text="2022.11.03 14:00(KST) 기준"
+                        android:textSize="@dimen/small_text_size"
+                        android:layout_weight="5"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/table_title"
+                        android:gravity="center"
+                        android:text=""
+                        android:textSize="@dimen/small_text_size"
+                        android:layout_weight="2"/>
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:weightSum="8">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/table_title"
+                        android:gravity="center"
+                        android:text="지수"
+                        android:textSize="@dimen/middle_text_size"
+                        android:textStyle="bold"
+                        android:layout_weight="2"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/table_title"
+                        android:gravity="center"
+                        android:text="현재가"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/middle_text_size"
+                        android:layout_weight="3"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/table_title"
+                        android:gravity="center"
+                        android:text="전일비/등락율"
+                        android:textSize="@dimen/middle_text_size"
+                        android:layout_weight="3"/>
+                </TableRow>
+                <TableRow
+                    android:id="@+id/sm_KOSPI"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:weightSum="8">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/table_inside_currency"
+                        android:gravity="center"
+                        android:text="KOSPI"
+                        android:textSize="@dimen/middle_text_size"
+                        android:textStyle="bold"
+                        android:layout_weight="2"/>
+
+                    <TextView
+                        android:id="@+id/sm_now_value_KOSPI"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/table_inside_light"
+                        android:gravity="center"
+                        android:text="2500.0원"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/middle_text_size"
+                        android:layout_weight="3"/>
+
+                    <TextView
+                        android:id="@+id/sm_change_value_and_rate_KOSPI"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/table_inside_light"
+                        android:gravity="center"
+                        android:text="▴ 80.00 / +3.00%"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/middle_text_size"
+                        android:layout_weight="3"/>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/sm_KOSDAQ"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:weightSum="8">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/table_inside_currency"
+                        android:gravity="center"
+                        android:text="KOSDAQ"
+                        android:textSize="@dimen/middle_text_size"
+                        android:textStyle="bold"
+                        android:layout_weight="2"/>
+
+                    <TextView
+                        android:id="@+id/sm_now_value_KOSDAQ"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/table_inside_light"
+                        android:gravity="center"
+                        android:text="2500.0원"
+                        android:textColor="@color/blue"
+                        android:textSize="@dimen/middle_text_size"
+                        android:layout_weight="3"/>
+
+                    <TextView
+                        android:id="@+id/sm_change_value_and_rate_KOSDAQ"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/table_inside_light"
+                        android:gravity="center"
+                        android:text="▾ 80.00 / -3.00%"
+                        android:textColor="@color/blue"
+                        android:textSize="@dimen/middle_text_size"
+                        android:layout_weight="3"/>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/sm_KOSPI200"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:weightSum="8">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/table_inside_currency"
+                        android:gravity="center"
+                        android:text="KOSPI200"
+                        android:textSize="@dimen/middle_text_size"
+                        android:textStyle="bold"
+                        android:layout_weight="2"/>
+
+                    <TextView
+                        android:id="@+id/sm_now_value_KOSPI200"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/table_inside_light"
+                        android:gravity="center"
+                        android:text="2500.0원"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/middle_text_size"
+                        android:layout_weight="3"/>
+
+                    <TextView
+                        android:id="@+id/sm_change_value_and_rate_KOSPI200"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/table_inside_light"
+                        android:gravity="center"
+                        android:text="▴ 80.00 / +3.00%"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/middle_text_size"
+                        android:layout_weight="3"/>
+                </TableRow>
+
+
+            </TableLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--            android:id="@+id/fab_add_currency"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="@dimen/fab_margin"-->
+<!--            android:backgroundTint="@color/ColorPrimary"-->
+<!--            android:src="@drawable/list"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/bnv"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:tint="@color/white" />-->
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bnv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/ColorPrimary"
+            app:itemIconTint="@color/white"
+            app:labelVisibilityMode="unlabeled"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:menu="@menu/item_menu" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_slide_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TableLayout
+            android:id="@+id/table_chart_decade"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="*">
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/table_title"
+                    android:gravity="center"
+                    android:text="1일"
+                    android:textSize="@dimen/page_title_text_size"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/table_title"
+                    android:gravity="center"
+                    android:text="3개월"
+                    android:textSize="@dimen/page_title_text_size"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/table_title"
+                    android:gravity="center"
+                    android:text="1년"
+                    android:textSize="@dimen/page_title_text_size"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/table_title"
+                    android:gravity="center"
+                    android:text="3년"
+                    android:textSize="@dimen/page_title_text_size"
+                    android:textStyle="bold" />
+            </TableRow>
+        </TableLayout>
+        <ImageView
+            android:id="@+id/iv_chart"
+            app:layout_constraintTop_toBottomOf="@id/table_chart_decade"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:foregroundGravity="top"
+            android:src="@drawable/chart_example"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </com.sothree.slidinguppanel.SlidingUpPanelLayout>
