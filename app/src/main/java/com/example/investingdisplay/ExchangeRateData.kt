@@ -10,4 +10,4 @@ data class ExchangeRateData(
     val imgSrcYear5 : String,
     val imgSrcYear10 : String,
     var isChecked:Boolean
-)
+) : java.io.Serializable

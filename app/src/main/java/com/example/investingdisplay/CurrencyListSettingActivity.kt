@@ -37,7 +37,7 @@ class CurrencyListSettingActivity : AppCompatActivity(){
         Thread(Runnable {
             //runOnUiThread{Toast.makeText(this,"test",Toast.LENGTH_LONG).show()}
             model = ExchangeRateModel()
-            model.setDataList()
+            model.dataList = intent.getSerializableExtra("dataList") as ArrayList<ExchangeRateData>
             for(i in 0..9){
                 cbList.get(i).isChecked = model.dataList.get(i).isChecked
             }
@@ -57,6 +57,7 @@ class CurrencyListSettingActivity : AppCompatActivity(){
 
         binding.fabList.setOnClickListener(){
             intent = Intent(this,MainActivity::class.java)
+            intent.putExtra("dataList", model.dataList)
             startActivity(intent)
         }
     }

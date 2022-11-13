@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -24,7 +25,7 @@ import java.net.URLConnection
 
 
 class MainActivity : AppCompatActivity() {
-
+    private var model : ExchangeRateModel? = null
     private lateinit var binding: ActivityMainBinding
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,9 +39,22 @@ class MainActivity : AppCompatActivity() {
 
         binding.fabAddCurrency.setOnClickListener() {
             intent = Intent(this, CurrencyListSettingActivity::class.java)
+            intent.putExtra("dataList", model?.dataList)
             startActivity(intent)
         }
 
+
+        val trList = ArrayList<TableRow>()
+        trList.add(binding.trUSD)
+        trList.add(binding.trEUR)
+        trList.add(binding.trJPY)
+        trList.add(binding.trCNY)
+        trList.add(binding.trHKD)
+        trList.add(binding.trTWD)
+        trList.add(binding.trGBP)
+        trList.add(binding.trOMR)
+        trList.add(binding.trCAD)
+        trList.add(binding.trCHF)
 
         val tvList = ArrayList<TextView>()
         tvList.add(binding.tvPriceUSD)
@@ -54,21 +68,26 @@ class MainActivity : AppCompatActivity() {
         tvList.add(binding.tvPriceCAD)
         tvList.add(binding.tvPriceCHF)
 
+
         Thread(Runnable {
             //모델 데이터 가져오기
-            val model = ExchangeRateModel()
-            model.setDataList()
-
-            for(i in 0..9){
-                tvList.get(i).text = model.dataList.get(i).rate
+            model = ExchangeRateModel()
+            if(intent.getSerializableExtra("dataList") as ArrayList<ExchangeRateData>? != null){
+                model?.dataList = (intent.getSerializableExtra("dataList") as ArrayList<ExchangeRateData>?)!!
+            }else{
+                model?.setDataList()
             }
 
             for(i in 0..9){
-                tvList.get(i).visibility = if(model.dataList.get(i).isChecked) View.VISIBLE else View.GONE
+                tvList.get(i).text = model?.dataList?.get(i)?.rate
+            }
+
+            for(i in 0..9){
+                trList.get(i).visibility = if(model?.dataList?.get(i)?.isChecked!!) View.VISIBLE else View.GONE
             }
 
             //이미지 가져와서 그리기
-            val imgUrl = URL(model.dataList.get(0).imgSrcMonth3)
+            val imgUrl = URL(model?.dataList?.get(0)?.imgSrcMonth3)
             val conn = imgUrl.openConnection()
             conn.connect()
             val nSize = conn.contentLength
