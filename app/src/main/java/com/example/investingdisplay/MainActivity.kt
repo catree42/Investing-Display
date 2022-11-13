@@ -7,6 +7,7 @@ import android.graphics.Matrix
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -60,6 +61,10 @@ class MainActivity : AppCompatActivity() {
 
             for(i in 0..9){
                 tvList.get(i).text = model.dataList.get(i).rate
+            }
+
+            for(i in 0..9){
+                tvList.get(i).visibility = if(model.dataList.get(i).isChecked) View.VISIBLE else View.GONE
             }
 
             //이미지 가져와서 그리기

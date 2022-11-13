@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.CheckBox
 import android.widget.CompoundButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.example.investingdisplay.databinding.ActivityCurrencyListSettingBinding
@@ -20,11 +22,35 @@ class CurrencyListSettingActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        val cbList = ArrayList<CheckBox>()
+        cbList.add(binding.cbUSD)
+        cbList.add(binding.cbEUR)
+        cbList.add(binding.cbJPY)
+        cbList.add(binding.cbCNY)
+        cbList.add(binding.cbHKD)
+        cbList.add(binding.cbTWD)
+        cbList.add(binding.cbGBP)
+        cbList.add(binding.cbOMR)
+        cbList.add(binding.cbCAD)
+        cbList.add(binding.cbCHF)
+
         Thread(Runnable {
             //runOnUiThread{Toast.makeText(this,"test",Toast.LENGTH_LONG).show()}
             model = ExchangeRateModel()
             model.setDataList()
+            for(i in 0..9){
+                cbList.get(i).isChecked = model.dataList.get(i).isChecked
+            }
             binding.cbUSD.setOnCheckedChangeListener(CheckboxListener())
+            binding.cbEUR.setOnCheckedChangeListener(CheckboxListener())
+            binding.cbJPY.setOnCheckedChangeListener(CheckboxListener())
+            binding.cbCNY.setOnCheckedChangeListener(CheckboxListener())
+            binding.cbHKD.setOnCheckedChangeListener(CheckboxListener())
+            binding.cbTWD.setOnCheckedChangeListener(CheckboxListener())
+            binding.cbGBP.setOnCheckedChangeListener(CheckboxListener())
+            binding.cbOMR.setOnCheckedChangeListener(CheckboxListener())
+            binding.cbCAD.setOnCheckedChangeListener(CheckboxListener())
+            binding.cbCHF.setOnCheckedChangeListener(CheckboxListener())
 
         }).start()
 
@@ -40,8 +66,7 @@ class CurrencyListSettingActivity : AppCompatActivity(){
             when(view?.id){
                 R.id.cb_USD ->
                     if(isChecked) model.dataList.get(0).isChecked = true
-                    else {model.dataList.get(0).isChecked = false
-                        Toast.makeText(this@CurrencyListSettingActivity,"test",Toast.LENGTH_LONG).show()}
+                    else model.dataList.get(0).isChecked = false
                 R.id.cb_EUR ->
                     if(isChecked) model.dataList.get(1).isChecked = true
                     else model.dataList.get(1).isChecked = false
@@ -73,5 +98,4 @@ class CurrencyListSettingActivity : AppCompatActivity(){
         }
 
     }
-
 }
