@@ -27,6 +27,8 @@ import java.net.URLConnection
 class MainActivity : AppCompatActivity() {
     private var model : ExchangeRateModel? = null
     private lateinit var binding: ActivityMainBinding
+    private lateinit var thr:Thread
+    private var str:String?=null
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +37,52 @@ class MainActivity : AppCompatActivity() {
 
         binding.tvShowChartUSD.setOnClickListener() {
             binding.slidePanel.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+            str=model?.dataList?.get(0)?.imgSrcMonth3
+        }
+
+        binding.tvShowChartEUR.setOnClickListener() {
+            binding.slidePanel.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+            str=model?.dataList?.get(1)?.imgSrcMonth3
+        }
+
+        binding.tvShowChartJPY.setOnClickListener() {
+            binding.slidePanel.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+            str=model?.dataList?.get(2)?.imgSrcMonth3
+        }
+
+        binding.tvShowChartCNY.setOnClickListener() {
+            binding.slidePanel.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+            str=model?.dataList?.get(3)?.imgSrcMonth3
+        }
+
+        binding.tvShowChartHKD.setOnClickListener() {
+            binding.slidePanel.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+            str=model?.dataList?.get(4)?.imgSrcMonth3
+        }
+
+        binding.tvShowChartTWD.setOnClickListener() {
+            binding.slidePanel.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+            str=model?.dataList?.get(5)?.imgSrcMonth3
+        }
+
+        binding.tvShowChartGBP.setOnClickListener() {
+            binding.slidePanel.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+            str=model?.dataList?.get(6)?.imgSrcMonth3
+        }
+
+        binding.tvShowChartOMP.setOnClickListener() {
+            binding.slidePanel.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+            str=model?.dataList?.get(7)?.imgSrcMonth3
+        }
+
+        binding.tvShowChartCAD.setOnClickListener() {
+            binding.slidePanel.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+            str=model?.dataList?.get(8)?.imgSrcMonth3
+        }
+
+        binding.tvShowChartCHF.setOnClickListener() {
+            binding.slidePanel.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+            str=model?.dataList?.get(9)?.imgSrcMonth3
         }
 
         binding.fabAddCurrency.setOnClickListener() {
@@ -69,40 +117,94 @@ class MainActivity : AppCompatActivity() {
         tvList.add(binding.tvPriceCHF)
 
 
-        Thread(Runnable {
-            //모델 데이터 가져오기
-            model = ExchangeRateModel()
-            if(intent.getSerializableExtra("dataList") as ArrayList<ExchangeRateData>? != null){
-                model?.dataList = (intent.getSerializableExtra("dataList") as ArrayList<ExchangeRateData>?)!!
-            }else{
-                model?.setDataList()
+        class WorkThread:Thread(){
+
+            override fun run(){
+                //모델 데이터 가져오기
+                model = ExchangeRateModel()
+                if(intent.getSerializableExtra("dataList") as ArrayList<ExchangeRateData>? != null){
+                    model?.dataList = (intent.getSerializableExtra("dataList") as ArrayList<ExchangeRateData>?)!!
+                }else{
+                    model?.setDataList()
+                }
+
+                for(i in 0..9){
+                    tvList.get(i).text = model?.dataList?.get(i)?.rate
+                }
+
+                for(i in 0..9){
+                    trList.get(i).visibility = if(model?.dataList?.get(i)?.isChecked!!) View.VISIBLE else View.GONE
+                }
+
+                while(true) {
+                    //이미지 가져와서 그리기
+                    if (str == null)
+                        str = model?.dataList?.get(0)?.imgSrcMonth3
+                    val imgUrl = URL(str)
+                    val conn = imgUrl.openConnection()
+                    conn.connect()
+                    val nSize = conn.contentLength
+                    val bis = BufferedInputStream(conn.getInputStream(), nSize)
+                    val imgBitmap = BitmapFactory.decodeStream(bis)
+                    bis.close()
+
+                    //이미지 크기 조절
+                    val matrix = Matrix()
+                    matrix.preScale(1.0f, 1.5f)
+                    val temp = Bitmap.createBitmap(
+                        imgBitmap,
+                        0,
+                        0,
+                        imgBitmap.width,
+                        imgBitmap.height,
+                        matrix,
+                        false
+                    )
+                    //val temp = Bitmap.createBitmap(imgBitmap,0,0,100,200)
+                    runOnUiThread { binding.ivChart.setImageBitmap(temp) }
+                }
             }
 
-            for(i in 0..9){
-                tvList.get(i).text = model?.dataList?.get(i)?.rate
-            }
+        }
 
-            for(i in 0..9){
-                trList.get(i).visibility = if(model?.dataList?.get(i)?.isChecked!!) View.VISIBLE else View.GONE
-            }
+        thr=WorkThread()
+        thr.start();
 
-            //이미지 가져와서 그리기
-            val imgUrl = URL(model?.dataList?.get(0)?.imgSrcMonth3)
-            val conn = imgUrl.openConnection()
-            conn.connect()
-            val nSize = conn.contentLength
-            val bis = BufferedInputStream(conn.getInputStream(),nSize)
-            val imgBitmap = BitmapFactory.decodeStream(bis)
-            bis.close()
 
-            //이미지 크기 조절
-            val matrix = Matrix()
-            matrix.preScale(1.0f, 1.5f)
-            val temp = Bitmap.createBitmap(imgBitmap, 0,0,imgBitmap.width, imgBitmap.height, matrix, false)
-            //val temp = Bitmap.createBitmap(imgBitmap,0,0,100,200)
-            runOnUiThread{binding.ivChart.setImageBitmap(temp)}
-
-        }).start()
+//        Thread(Runnable {
+//            //모델 데이터 가져오기
+//            model = ExchangeRateModel()
+//            if(intent.getSerializableExtra("dataList") as ArrayList<ExchangeRateData>? != null){
+//                model?.dataList = (intent.getSerializableExtra("dataList") as ArrayList<ExchangeRateData>?)!!
+//            }else{
+//                model?.setDataList()
+//            }
+//
+//            for(i in 0..9){
+//                tvList.get(i).text = model?.dataList?.get(i)?.rate
+//            }
+//
+//            for(i in 0..9){
+//                trList.get(i).visibility = if(model?.dataList?.get(i)?.isChecked!!) View.VISIBLE else View.GONE
+//            }
+//
+//            //이미지 가져와서 그리기
+//            val imgUrl = URL(model?.dataList?.get(0)?.imgSrcMonth3)
+//            val conn = imgUrl.openConnection()
+//            conn.connect()
+//            val nSize = conn.contentLength
+//            val bis = BufferedInputStream(conn.getInputStream(),nSize)
+//            val imgBitmap = BitmapFactory.decodeStream(bis)
+//            bis.close()
+//
+//            //이미지 크기 조절
+//            val matrix = Matrix()
+//            matrix.preScale(1.0f, 1.5f)
+//            val temp = Bitmap.createBitmap(imgBitmap, 0,0,imgBitmap.width, imgBitmap.height, matrix, false)
+//            //val temp = Bitmap.createBitmap(imgBitmap,0,0,100,200)
+//            runOnUiThread{binding.ivChart.setImageBitmap(temp)}
+//
+//        }).start()
 
     }
 
