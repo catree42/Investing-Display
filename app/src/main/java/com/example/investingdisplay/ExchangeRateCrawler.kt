@@ -2,6 +2,7 @@ package com.example.investingdisplay
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import org.jsoup.Jsoup
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -10,9 +11,21 @@ class ExchangeRateCrawler : Crawler() {
 
     //https://ssl.pstatic.net/imgfinance/chart/marketindex/area/year10/FX_USDKRW.png?sidcode=20221110
     override var url: String = "https://finance.naver.com/marketindex/exchangeList.naver"
-    val chartURL = "https://ssl.pstatic.net/imgfinance/chart/marketindex/area"
-    val currencies = arrayOf("USD", "EUR", "JPY", "CNY", "HKD", "TWD", "GBP", "OMR", "CAD", "CHF")
+    private val chartURL = "https://ssl.pstatic.net/imgfinance/chart/marketindex/area"
+    private val currencies = arrayOf("USD", "EUR", "JPY", "CNY", "HKD", "TWD", "GBP", "OMR", "CAD", "CHF")
+    private val naverFinanceUrl = "https://finance.naver.com/marketindex/"
 
+    fun crawlDate():String{
+        val doc = Jsoup.connect(naverFinanceUrl).get()
+        val date = doc.select("#section_ex1 > div > span.date").text()
+        return date
+    }
+
+    fun crawlStandard():String{
+        val doc = Jsoup.connect(naverFinanceUrl).get()
+        val standard = doc.select("#section_ex1 > div > span.standard").text()
+        return standard
+    }
 
     private fun crawlName(i:Int):String{
         val name = getElements("body > div > table > tbody > tr:nth-child($i) > td.tit > a")

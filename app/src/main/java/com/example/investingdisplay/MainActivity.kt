@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         binding.tvShowChartUSD.setOnClickListener() {
             binding.slidePanel.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
             str=model?.dataList?.get(0)?.imgSrcMonth3
@@ -122,6 +123,7 @@ class MainActivity : AppCompatActivity() {
             override fun run(){
                 //모델 데이터 가져오기
                 model = ExchangeRateModel()
+                setDateStandard()
                 if(intent.getSerializableExtra("dataList") as ArrayList<ExchangeRateData>? != null){
                     model?.dataList = (intent.getSerializableExtra("dataList") as ArrayList<ExchangeRateData>?)!!
                 }else{
@@ -208,6 +210,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun setDateStandard(){
+//        model?.setDate()
+//        model?.setStandard()
+        runOnUiThread { binding.tvDate.text = model?.date }
+        runOnUiThread{binding.tvStandard.text = model?.standard}
+    }
 }
 
 
