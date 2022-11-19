@@ -475,6 +475,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/one_Month"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/table_title"
@@ -484,6 +485,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/three_Month"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/table_title"
@@ -493,6 +495,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/one_Year"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/table_title"
@@ -501,6 +504,7 @@
                     android:textSize="@dimen/page_title_text_size"
                     android:textStyle="bold" />
                 <TextView
+                    android:id="@+id/three_Year"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/table_title"
@@ -509,6 +513,7 @@
                     android:textSize="@dimen/page_title_text_size"
                     android:textStyle="bold" />
                 <TextView
+                    android:id="@+id/five_Year"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/table_title"
@@ -517,6 +522,7 @@
                     android:textSize="@dimen/page_title_text_size"
                     android:textStyle="bold" />
                 <TextView
+                    android:id="@+id/ten_Year"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/table_title"
