@@ -5,9 +5,9 @@ import androidx.annotation.RequiresApi
 
 class StockMarketModel : Model() {
     var dataList = ArrayList<StockMarketData>()
-    override val crawler: Crawler
-        get() = StockMarketCrawler()
-    override var date: String = ""
+    override val crawler = StockMarketCrawler()
+    override val date = crawler.crawlDate()
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun setDataList() {
         dataList = StockMarketCrawler().getDataList()

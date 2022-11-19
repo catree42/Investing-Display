@@ -16,29 +16,59 @@ import java.net.URL
 
 
 class StockMarketActivity : AppCompatActivity() {
-
+    private lateinit var model : StockMarketModel
+    private var imgUrl : String = ""
+    private var selectedStock  = 0
+    private var selectedPeriod  = 0
+    private lateinit var thr:Thread
     private lateinit var binding: ActivityStockMarketBinding
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityStockMarketBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var selectedStock  = 0
-
         binding.smKOSPI.setOnClickListener() {
             selectedStock = 0
             binding.slidePanel.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+            imgUrl= setImgUrl(selectedStock, selectedPeriod)
         }
 
         binding.smKOSDAQ.setOnClickListener() {
             selectedStock = 1
             binding.slidePanel.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+            imgUrl= setImgUrl(selectedStock, selectedPeriod)
         }
 
         binding.smKOSPI200.setOnClickListener() {
             selectedStock = 2
             binding.slidePanel.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+            imgUrl= setImgUrl(selectedStock, selectedPeriod)
+        }
+
+        binding.sm1day.setOnClickListener() {
+            selectedPeriod = 0
+            binding.slidePanel.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+            imgUrl= setImgUrl(selectedStock, selectedPeriod)
+        }
+
+        binding.sm3month.setOnClickListener() {
+            selectedPeriod = 1
+            binding.slidePanel.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+            imgUrl= setImgUrl(selectedStock, selectedPeriod)
+        }
+
+        binding.sm1year.setOnClickListener() {
+            selectedPeriod = 2
+            binding.slidePanel.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+            imgUrl= setImgUrl(selectedStock, selectedPeriod)
+        }
+
+        binding.sm3year.setOnClickListener() {
+            selectedPeriod = 3
+            binding.slidePanel.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+            imgUrl= setImgUrl(selectedStock, selectedPeriod)
         }
 
 
@@ -52,43 +82,73 @@ class StockMarketActivity : AppCompatActivity() {
         smChangeValueAndRateList.add(binding.smChangeValueAndRateKOSDAQ)
         smChangeValueAndRateList.add(binding.smChangeValueAndRateKOSPI200)
 
-        Thread(Runnable {
-            //모델 데이터 가져오기
-            val model = StockMarketModel()
-            model.setDataList()
+        class WorkThread:Thread(){
+            override fun run(){
+                //모델 데이터 가져오기
+                model = StockMarketModel()
+                model.setDataList()
 
-            //텍스트 데이터
-            for(i in 0..2){
-                smNowValueList[i].text = model.dataList[i].nowValue
-                if (model.dataList[i].isrised){
-                    smChangeValueAndRateList[i].text = "▴ "+ model.dataList[i].changeValue + " " + model.dataList[i].changeRate+"%"
-                    smChangeValueAndRateList[i].setTextColor(Color.RED)
-                    smNowValueList[i].setTextColor(Color.RED)
+                runOnUiThread { binding.smTime.text = model.date }
+
+                //텍스트 데이터
+                for(i in 0..2){
+                    smNowValueList[i].text = model.dataList[i].nowValue
+                    if (model.dataList[i].isrised){
+                        smChangeValueAndRateList[i].text = "▴ "+ model.dataList[i].changeValue + " " + model.dataList[i].changeRate+"%"
+                        smChangeValueAndRateList[i].setTextColor(Color.RED)
+                        smNowValueList[i].setTextColor(Color.RED)
+                    }
+                    else{
+                        smChangeValueAndRateList[i].text = "▾ "+ model.dataList[i].changeValue + " " + model.dataList[i].changeRate+"%"
+                        smChangeValueAndRateList[i].setTextColor(Color.BLUE)
+                        smNowValueList[i].setTextColor(Color.BLUE)
+                    }
                 }
-                else{
-                    smChangeValueAndRateList[i].text = "▾ "+ model.dataList[i].changeValue + " " + model.dataList[i].changeRate+"%"
-                    smChangeValueAndRateList[i].setTextColor(Color.BLUE)
-                    smNowValueList[i].setTextColor(Color.BLUE)
+                while(true) {
+                    //이미지 가져와서 그리기
+                    if (imgUrl == "")
+                        imgUrl = model.dataList[0].imgSrcMonth3
+
+                    val url = URL(imgUrl)
+                    val conn = url.openConnection()
+                    conn.connect()
+                    val nSize = conn.contentLength
+                    val bis = BufferedInputStream(conn.getInputStream(), nSize)
+                    val imgBitmap = BitmapFactory.decodeStream(bis)
+                    bis.close()
+
+                    //이미지 크기 조절
+                    val matrix = Matrix()
+                    matrix.preScale(1.0f, 1.0f)
+                    val temp = Bitmap.createBitmap(
+                        imgBitmap,
+                        0,
+                        0,
+                        imgBitmap.width,
+                        imgBitmap.height,
+                        matrix,
+                        false
+                    )
+                    //val temp = Bitmap.createBitmap(imgBitmap,0,0,100,200)
+                    runOnUiThread { binding.ivChart.setImageBitmap(temp) }
                 }
             }
+        }
 
-            //이미지 가져와서 그리기
-            val imgUrl = URL(model.dataList[selectedStock].imgSrcMonth3)
-            val conn = imgUrl.openConnection()
-            conn.connect()
-            val nSize = conn.contentLength
-            val bis = BufferedInputStream(conn.getInputStream(),nSize)
-            val imgBitmap = BitmapFactory.decodeStream(bis)
-            bis.close()
+        thr=WorkThread()
+        thr.start()
+    }
+    private fun setImgUrl(stockIndex:Int, periodIndex:Int):String{
+        var tempstr = ""
+        if (periodIndex == 0)
+            tempstr = model.dataList[stockIndex].imgSrcDay
+        else if (periodIndex == 1)
+            tempstr = model.dataList[stockIndex].imgSrcMonth3
+        else if (periodIndex == 2)
+            tempstr = model.dataList[stockIndex].imgSrcYear
+        else
+            tempstr = model.dataList[stockIndex].imgSrcYear3
 
-            //이미지 크기 조절
-            val matrix = Matrix()
-            matrix.preScale(1.0f, 1.0f)
-            val temp = Bitmap.createBitmap(imgBitmap, 0,0,imgBitmap.width, imgBitmap.height, matrix, false)
-            //val temp = Bitmap.createBitmap(imgBitmap,0,0,100,200)
-            runOnUiThread{binding.ivChart.setImageBitmap(temp)}
-
-        }).start()
-
+        return tempstr
     }
 }
