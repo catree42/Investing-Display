@@ -38,9 +38,13 @@ class CurrencyListSettingActivity : AppCompatActivity(){
             //runOnUiThread{Toast.makeText(this,"test",Toast.LENGTH_LONG).show()}
             model = ExchangeRateModel()
             model.dataList = intent.getSerializableExtra("dataList") as ArrayList<ExchangeRateData>
-            for(i in 0..9){
-                cbList.get(i).isChecked = model.dataList.get(i).isChecked
+
+            runOnUiThread {
+                for(i in 0..9){
+                    cbList.get(i).isChecked = model.dataList.get(i).isChecked
+                }
             }
+
             binding.cbUSD.setOnCheckedChangeListener(CheckboxListener())
             binding.cbEUR.setOnCheckedChangeListener(CheckboxListener())
             binding.cbJPY.setOnCheckedChangeListener(CheckboxListener())

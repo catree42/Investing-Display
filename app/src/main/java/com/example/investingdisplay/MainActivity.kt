@@ -176,9 +176,12 @@ class MainActivity : AppCompatActivity() {
                     tvList.get(i).text = model?.dataList?.get(i)?.rate
                 }
 
-                for(i in 0..9){
-                    trList.get(i).visibility = if(model?.dataList?.get(i)?.isChecked!!) View.VISIBLE else View.GONE
+                runOnUiThread {
+                    for(i in 0..9){
+                        trList.get(i).visibility = if(model?.dataList?.get(i)?.isChecked!!) View.VISIBLE else View.GONE
+                    }
                 }
+
 
                 while(true) {
                     //이미지 가져와서 그리기
