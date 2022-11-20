@@ -2,6 +2,7 @@ package com.example.investingdisplay
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import org.jsoup.Jsoup
 
 class StockMarketCrawler : Crawler() {
 
@@ -10,6 +11,7 @@ class StockMarketCrawler : Crawler() {
     //https://finance.naver.com/sise/sise_index.naver?code=KOSDAQ
     //https://finance.naver.com/sise/sise_index.naver?code=KPI200
     private val baseUrl = "https://finance.naver.com/sise/sise_index.naver?code="
+    private val finalUrl = "https://finance.naver.com/"
     override var url: String = baseUrl
     var chartURLs = Array(2) { "" }
     val stocks = arrayOf("KOSPI", "KOSDAQ", "KPI200")
@@ -19,6 +21,12 @@ class StockMarketCrawler : Crawler() {
         changeUrl(baseUrl + stocks[i])
     }
 
+    fun crawlDate(): String {
+        val doc = Jsoup.connect(finalUrl).get()
+        var str = doc.select("#time").html()
+        str = str.replace("</span>", "").replace("<span>", " ")
+        return str
+    }
 
     private fun crawlnowPrice():String{
         val str = getElements("#now_value")
