@@ -5,7 +5,8 @@ import androidx.annotation.RequiresApi
 
 class ExchangeRateModel : Model(), java.io.Serializable {
     var dataList = ArrayList<ExchangeRateData>()
-    override val crawler = ExchangeRateCrawler()
+    val crawler = ExchangeRateCrawler()
+//    override val crawler = ExchangeRateCrawler()
     override val date = crawler.crawlDate()
     val standard = crawler.crawlStandard()
 
