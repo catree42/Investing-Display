@@ -28,7 +28,10 @@ class ExchangeRateAdapter(private val context: Context, listener:OnItemClick)
                 if(item.isChecked){
                     tlExchangeRate.visibility = View.VISIBLE
                 }else{
-                    tlExchangeRate.visibility = View.GONE
+                    //tlExchangeRate.visibility = View.GONE
+                    val params = tlExchangeRate.layoutParams
+                    params.height = 0
+                    tlExchangeRate.layoutParams = params
                 }
                 tvName.text = item.name
                 tvRate.text = item.rate
