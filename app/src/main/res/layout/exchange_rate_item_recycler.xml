@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+    android:id="@+id/tl_exchangeRate"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:stretchColumns="*">
+    <TableRow>
+        <TextView
+            android:id="@+id/tv_name"
+            android:width="50dp"
+            android:gravity="center"
+            android:background="@drawable/table_inside_currency"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="USD"
+            android:textSize="@dimen/middle_text_size"/>
+        <TextView
+            android:id="@+id/tv_rate"
+            android:width="100dp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:background="@drawable/table_inside_light"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="0.0"
+            android:textSize="@dimen/middle_text_size"/>
+        <TextView
+            android:id="@+id/tv_chart"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:background="@drawable/table_inside_light"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="차트 보기"
+            android:textSize="@dimen/middle_text_size"/>
+    </TableRow>
+</TableLayout>
