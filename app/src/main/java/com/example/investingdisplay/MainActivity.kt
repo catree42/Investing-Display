@@ -26,11 +26,11 @@ import java.net.URLConnection
 
 
 class MainActivity : AppCompatActivity(), OnItemClick {
-    private var model : ExchangeRateModel? = null
-    private var modelData : ExchangeRateData? = null    //어떤 환율인지 담을 modelData
+    private var model: ExchangeRateModel? = null
+    private var modelData: ExchangeRateData? = null    //어떤 환율인지 담을 modelData
     private lateinit var binding: ActivityMainBinding
-    private lateinit var thr:Thread
-    private var str:String?=null
+    private lateinit var thr: Thread
+    private var str: String? = null
 
     lateinit var exchangeRateAdapter: ExchangeRateAdapter
 
@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity(), OnItemClick {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         //통화 선택 화면으로 바꾸게함
         binding.fabAddCurrency.setOnClickListener() {
             intent = Intent(this, CurrencyListSettingActivity::class.java)
@@ -48,63 +47,73 @@ class MainActivity : AppCompatActivity(), OnItemClick {
             startActivity(intent)
         }
 
-        class WorkThread:Thread(){
-
-            override fun run(){
-                //모델 데이터 가져오기
-                model = ExchangeRateModel()
-                setDateStandard()
-                if(intent.getSerializableExtra("dataList") as ArrayList<ExchangeRateData>? != null){
-                    model?.dataList = (intent.getSerializableExtra("dataList") as ArrayList<ExchangeRateData>?)!!
-                }else{
-                    model?.setDataList()
-                }
-
-                runOnUiThread {initRecycler()}
-
-
-                while(true) {
-                    //이미지 가져와서 그리기
-                    if (str == null)
-                        str = model?.dataList?.get(0)?.imgSrcMonth3
-                    val imgUrl = URL(str)
-                    val conn = imgUrl.openConnection()
-                    conn.connect()
-                    val nSize = conn.contentLength
-                    val bis = BufferedInputStream(conn.getInputStream(), nSize)
-                    val imgBitmap = BitmapFactory.decodeStream(bis)
-                    bis.close()
-
-                    //이미지 크기 조절
-                    val matrix = Matrix()
-                    matrix.preScale(1.0f, 1.5f)
-                    val temp = Bitmap.createBitmap(
-                        imgBitmap,
-                        0,
-                        0,
-                        imgBitmap.width,
-                        imgBitmap.height,
-                        matrix,
-                        false
-                    )
-                    //val temp = Bitmap.createBitmap(imgBitmap,0,0,100,200)
-                    runOnUiThread { binding.ivChart.setImageBitmap(temp) }
-                }
-            }
-        }
-
-        thr=WorkThread()
+        thr = WorkThread()
         thr.start();
     }
 
-    fun setDateStandard(){
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun setModel() {
+        model = ExchangeRateModel()
+        setDateStandard()
+        if (intent.getSerializableExtra("dataList") as ArrayList<ExchangeRateData>? != null) {
+            model?.dataList =
+                (intent.getSerializableExtra("dataList") as ArrayList<ExchangeRateData>?)!!
+        } else {
+            model?.setDataList()
+        }
+    }
+
+    private fun drawChart() {
+        if (str == null)
+            str = model?.dataList?.get(0)?.imgSrcMonth3
+        val imgUrl = URL(str)
+        val conn = imgUrl.openConnection()
+        conn.connect()
+        val nSize = conn.contentLength
+        val bis = BufferedInputStream(conn.getInputStream(), nSize)
+        val imgBitmap = BitmapFactory.decodeStream(bis)
+        bis.close()
+
+        //이미지 크기 조절
+        val matrix = Matrix()
+        matrix.preScale(1.0f, 1.5f)
+        val temp = Bitmap.createBitmap(
+            imgBitmap,
+            0,
+            0,
+            imgBitmap.width,
+            imgBitmap.height,
+            matrix,
+            false
+        )
+        //val temp = Bitmap.createBitmap(imgBitmap,0,0,100,200)
+        runOnUiThread { binding.ivChart.setImageBitmap(temp) }
+    }
+
+    inner class WorkThread : Thread() {
+
+        @RequiresApi(Build.VERSION_CODES.O)
+        override fun run() {
+            //모델 데이터 가져오기
+            setModel()
+            runOnUiThread { initRecycler() }
+
+
+            while (true) {
+                //이미지 가져와서 그리기
+                drawChart()
+            }
+        }
+    }
+
+    fun setDateStandard() {
 //        model?.setDate()
 //        model?.setStandard()
         runOnUiThread { binding.tvDate.text = model?.date }
-        runOnUiThread{binding.tvStandard.text = model?.standard}
+        runOnUiThread { binding.tvStandard.text = model?.standard }
     }
 
-    private fun initRecycler(){
+    private fun initRecycler() {
         exchangeRateAdapter = ExchangeRateAdapter(this@MainActivity, this)
         binding.rvExchangeRate.adapter = exchangeRateAdapter
 
@@ -120,33 +129,33 @@ class MainActivity : AppCompatActivity(), OnItemClick {
 
         binding.oneMonth.setOnClickListener() {
             binding.slidePanel.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
-            str=data?.imgSrcMonth
+            str = data?.imgSrcMonth
 
         }
 
         binding.threeMonth.setOnClickListener() {
             binding.slidePanel.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
-            str=data?.imgSrcMonth3
+            str = data?.imgSrcMonth3
         }
 
         binding.oneYear.setOnClickListener() {
             binding.slidePanel.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
-            str=data?.imgSrcYear
+            str = data?.imgSrcYear
         }
 
         binding.threeYear.setOnClickListener() {
             binding.slidePanel.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
-            str=data?.imgSrcYear3
+            str = data?.imgSrcYear3
         }
 
         binding.fiveYear.setOnClickListener() {
             binding.slidePanel.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
-            str=data?.imgSrcYear5
+            str = data?.imgSrcYear5
         }
 
         binding.tenYear.setOnClickListener() {
             binding.slidePanel.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
-            str=data?.imgSrcYear10
+            str = data?.imgSrcYear10
         }
     }
 }
