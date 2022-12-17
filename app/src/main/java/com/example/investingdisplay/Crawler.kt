@@ -14,7 +14,6 @@ abstract class Crawler {
 
     private fun getDoc(): Document {
         return Jsoup.connect(url).get()
-//        return Jsoup.connect("https://finance.naver.com/sise/sise_index.naver?code=KOSPI").get()
     }
 
     fun getElements(query:String): Elements {
