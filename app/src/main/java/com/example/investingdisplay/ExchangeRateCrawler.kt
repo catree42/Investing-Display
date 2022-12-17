@@ -11,13 +11,16 @@ class ExchangeRateCrawler : Crawler() {
     override var url: String = "https://finance.naver.com/marketindex/exchangeList.naver"
     var exchangeRateImageCrawler = ExchangeRateImageCrawler();
     var exchangeRateDateCrawler =ExchangeRateDateCrawler();
-    var dataList = ArrayList<ExchangeRateData>();
+    var exchangeRateNameCrawler=ExchangeRateNameCrawler();
+    var tempDataList = ArrayList<ExchangeRateData>();
+    var dataList=ArrayList<ExchangeRateData>();
     var date:String="";
     var standard:String="";
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun startCrawling(){
-        dataList=exchangeRateImageCrawler.getDataList();
+        tempDataList=exchangeRateImageCrawler.getDataList();
+        dataList=exchangeRateNameCrawler.getDataList(tempDataList);
         date=exchangeRateDateCrawler.crawlDate();
         standard=exchangeRateDateCrawler.crawlStandard();
     }

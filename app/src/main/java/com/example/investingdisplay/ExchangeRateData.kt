@@ -1,8 +1,8 @@
 package com.example.investingdisplay
 
 data class ExchangeRateData(
-    val name : String,
-    val rate : String,
+    var name : String,
+    var rate : String,
     val imgSrcMonth : String,
     val imgSrcMonth3 : String,
     val imgSrcYear : String,

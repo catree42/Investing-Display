@@ -11,16 +11,6 @@ class ExchangeRateImageCrawler : Crawler(){
     private val chartURL = "https://ssl.pstatic.net/imgfinance/chart/marketindex/area"
     private val currencies = arrayOf("USD", "EUR", "JPY", "CNY", "HKD", "TWD", "GBP", "OMR", "CAD", "CHF")
 
-    private fun crawlName(i:Int):String{
-        val name = getElements("body > div > table > tbody > tr:nth-child($i) > td.tit > a")
-        return name.text()
-    }
-
-    private fun crawlRate(i: Int):String{
-        val rate = getElements("body > div > table > tbody > tr:nth-child($i) > td.sale")
-        return rate.text()
-    }
-
     @RequiresApi(Build.VERSION_CODES.O)
     private fun getDate():String{
         val current = LocalDate.now()
@@ -46,8 +36,8 @@ class ExchangeRateImageCrawler : Crawler(){
         var imgSrcYear5 : String
         var imgSrcYear10 : String
         for(i in 1..10){
-            name = crawlName(i)
-            rate = crawlRate(i)
+            name = ""
+            rate = ""
             imgSrcMonth = getImgSrc("month",currencies.get(i-1))
             imgSrcMonth3 = getImgSrc("month3",currencies.get(i-1))
             imgSrcYear = getImgSrc("year",currencies.get(i-1))
