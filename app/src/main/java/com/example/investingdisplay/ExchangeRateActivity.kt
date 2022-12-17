@@ -9,6 +9,7 @@ import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.investingdisplay.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import java.io.BufferedInputStream
 import java.net.URL
@@ -27,6 +28,25 @@ class ExchangeRateActivity : AppCompatActivity(), ExchangeRateOnItemClick {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val bnv_main = findViewById<BottomNavigationView>(R.id.bnv)
+
+        bnv_main.setOnItemSelectedListener { item ->
+
+                when (item.itemId) {
+                    R.id.nav_exchangeRate -> {
+
+                    }
+                    R.id.nav_stock -> {
+                        intent = Intent(this, StockMarketActivity::class.java)
+
+                        startActivity(intent)
+                    }
+
+                }
+
+            true
+        }
+        bnv_main.selectedItemId = R.id.nav_exchangeRate
 
         //통화 선택 화면으로 바꾸게함
         binding.fabAddCurrency.setOnClickListener() {

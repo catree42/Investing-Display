@@ -15,7 +15,7 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import java.io.BufferedInputStream
 import java.net.URL
 import android.view.MenuItem
-
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class StockMarketActivity : AppCompatActivity(), StockMarketOnItemClick{
@@ -33,8 +33,23 @@ class StockMarketActivity : AppCompatActivity(), StockMarketOnItemClick{
         super.onCreate(savedInstanceState)
         binding = ActivityStockMarketBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val bnv_main = findViewById<BottomNavigationView>(R.id.bnv)
+        bnv_main.setOnItemSelectedListener { item ->
 
+            when (item.itemId) {
+                R.id.nav_exchangeRate -> {
+                    intent = Intent(this, ExchangeRateActivity::class.java)
 
+                    startActivity(intent)
+                }
+                R.id.nav_stock -> {
+
+                }
+
+            }
+
+            true
+        }
 
 
 
@@ -43,6 +58,7 @@ class StockMarketActivity : AppCompatActivity(), StockMarketOnItemClick{
         thr.start()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun setModel() {
         model = StockMarketModel()
         if (intent.getSerializableExtra("dataList") as ArrayList<StockMarketData>? != null) {
