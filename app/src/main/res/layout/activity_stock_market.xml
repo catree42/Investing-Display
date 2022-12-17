@@ -8,7 +8,7 @@
     android:gravity="bottom"
     app:umanoOverlay="false"
     app:umanoPanelHeight="0dp"
-    tools:context=".ExchangeRateActivity"
+    tools:context=".MainActivity"
     android:id="@+id/slidePanel">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -55,6 +55,7 @@
                         android:layout_weight="5"/>
 
                     <TextView
+                        android:id="@+id/sm_Standard"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:background="@drawable/table_title"
@@ -97,138 +98,32 @@
                         android:textSize="@dimen/middle_text_size"
                         android:layout_weight="3"/>
                 </TableRow>
-                <TableRow
-                    android:id="@+id/sm_KOSPI"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_stockmarket"
+                    app:layout_constraintTop_toBottomOf="@+id/tl_title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:weightSum="8">
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/stockmarket_item_recycler"
+                    android:orientation="vertical"
+                    />
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/table_inside_currency"
-                        android:gravity="center"
-                        android:text="KOSPI"
-                        android:textSize="@dimen/middle_text_size"
-                        android:textStyle="bold"
-                        android:layout_weight="2"/>
-
-                    <TextView
-                        android:id="@+id/sm_now_value_KOSPI"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/table_inside_light"
-                        android:gravity="center"
-                        android:text="2500.0원"
-                        android:textColor="@color/red"
-                        android:textSize="@dimen/middle_text_size"
-                        android:layout_weight="3"/>
-
-                    <TextView
-                        android:id="@+id/sm_change_value_and_rate_KOSPI"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/table_inside_light"
-                        android:gravity="center"
-                        android:text="▴ 80.00 / +3.00%"
-                        android:textColor="@color/red"
-                        android:textSize="@dimen/middle_text_size"
-                        android:layout_weight="3"/>
-                </TableRow>
-
-                <TableRow
-                    android:id="@+id/sm_KOSDAQ"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:weightSum="8">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/table_inside_currency"
-                        android:gravity="center"
-                        android:text="KOSDAQ"
-                        android:textSize="@dimen/middle_text_size"
-                        android:textStyle="bold"
-                        android:layout_weight="2"/>
-
-                    <TextView
-                        android:id="@+id/sm_now_value_KOSDAQ"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/table_inside_light"
-                        android:gravity="center"
-                        android:text="2500.0원"
-                        android:textColor="@color/blue"
-                        android:textSize="@dimen/middle_text_size"
-                        android:layout_weight="3"/>
-
-                    <TextView
-                        android:id="@+id/sm_change_value_and_rate_KOSDAQ"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/table_inside_light"
-                        android:gravity="center"
-                        android:text="▾ 80.00 / -3.00%"
-                        android:textColor="@color/blue"
-                        android:textSize="@dimen/middle_text_size"
-                        android:layout_weight="3"/>
-                </TableRow>
-
-                <TableRow
-                    android:id="@+id/sm_KOSPI200"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:weightSum="8">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/table_inside_currency"
-                        android:gravity="center"
-                        android:text="KOSPI200"
-                        android:textSize="@dimen/middle_text_size"
-                        android:textStyle="bold"
-                        android:layout_weight="2"/>
-
-                    <TextView
-                        android:id="@+id/sm_now_value_KOSPI200"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/table_inside_light"
-                        android:gravity="center"
-                        android:text="2500.0원"
-                        android:textColor="@color/red"
-                        android:textSize="@dimen/middle_text_size"
-                        android:layout_weight="3"/>
-
-                    <TextView
-                        android:id="@+id/sm_change_value_and_rate_KOSPI200"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/table_inside_light"
-                        android:gravity="center"
-                        android:text="▴ 80.00 / +3.00%"
-                        android:textColor="@color/red"
-                        android:textSize="@dimen/middle_text_size"
-                        android:layout_weight="3"/>
-                </TableRow>
 
 
             </TableLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--            android:id="@+id/fab_add_currency"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="@dimen/fab_margin"-->
-<!--            android:backgroundTint="@color/ColorPrimary"-->
-<!--            android:src="@drawable/list"-->
-<!--            app:layout_constraintBottom_toTopOf="@+id/bnv"-->
-<!--            app:layout_constraintRight_toRightOf="parent"-->
-<!--            app:tint="@color/white" />-->
+        <!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+        <!--            android:id="@+id/fab_add_currency"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_margin="@dimen/fab_margin"-->
+        <!--            android:backgroundTint="@color/ColorPrimary"-->
+        <!--            android:src="@drawable/list"-->
+        <!--            app:layout_constraintBottom_toTopOf="@+id/bnv"-->
+        <!--            app:layout_constraintRight_toRightOf="parent"-->
+        <!--            app:tint="@color/white" />-->
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bnv"

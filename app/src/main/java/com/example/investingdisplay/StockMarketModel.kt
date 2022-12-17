@@ -7,6 +7,7 @@ class StockMarketModel : Model() {
     var dataList = ArrayList<StockMarketData>()
     private val crawler = FacadeStockMarketCrawler()
     override val date = crawler.getCriterionTime()
+    var standard = "";
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun setDataList() {

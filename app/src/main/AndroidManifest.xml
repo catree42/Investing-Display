@@ -17,10 +17,10 @@
             android:name=".CurrencyListSettingActivity"
             android:exported="false" />
         <activity
-            android:name=".StockMarketActivity"
+            android:name=".ExchangeRateActivity"
             android:exported="false" />
         <activity
-            android:name=".ExchangeRateActivity"
+            android:name=".StockMarketActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
