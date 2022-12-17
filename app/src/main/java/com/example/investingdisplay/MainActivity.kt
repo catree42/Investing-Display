@@ -165,12 +165,13 @@ class MainActivity : AppCompatActivity() {
             override fun run(){
                 //모델 데이터 가져오기
                 model = ExchangeRateModel()
-                setDateStandard()
+
                 if(intent.getSerializableExtra("dataList") as ArrayList<ExchangeRateData>? != null){
                     model?.dataList = (intent.getSerializableExtra("dataList") as ArrayList<ExchangeRateData>?)!!
                 }else{
                     model?.setDataList()
                 }
+                setDateStandard()
 
                 for(i in 0..9){
                     tvList.get(i).text = model?.dataList?.get(i)?.rate
