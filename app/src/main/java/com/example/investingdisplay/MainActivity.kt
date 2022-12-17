@@ -46,15 +46,15 @@ class MainActivity : AppCompatActivity(), OnItemClick {
             intent.putExtra("dataList", model?.dataList)
             startActivity(intent)
         }
-
+        model = ExchangeRateModel()
         thr = WorkThread()
         thr.start();
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setModel() {
-        model = ExchangeRateModel()
         if (intent.getSerializableExtra("dataList") as ArrayList<ExchangeRateData>? != null) {
+            model?.setDataList()
             model?.dataList =
                 (intent.getSerializableExtra("dataList") as ArrayList<ExchangeRateData>?)!!
         } else {

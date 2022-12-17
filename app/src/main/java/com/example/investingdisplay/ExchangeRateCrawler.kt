@@ -16,7 +16,7 @@ class ExchangeRateCrawler : Crawler() {
     var standard:String="";
 
     @RequiresApi(Build.VERSION_CODES.O)
-    public fun startCrawling(){
+    fun startCrawling(){
         dataList=exchangeRateImageCrawler.getDataList();
         date=exchangeRateDateCrawler.crawlDate();
         standard=exchangeRateDateCrawler.crawlStandard();
