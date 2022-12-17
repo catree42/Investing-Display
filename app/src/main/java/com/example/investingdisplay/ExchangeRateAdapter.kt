@@ -3,19 +3,14 @@ package com.example.investingdisplay
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.TableLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter
-import com.sothree.slidinguppanel.SlidingUpPanelLayout
 
-class ExchangeRateAdapter(private val context: Context, listener:OnItemClick)
+class ExchangeRateAdapter(private val context: Context, listener:ExchangeRateOnItemClick)
     :RecyclerView.Adapter<ExchangeRateAdapter.ViewHolder>(){
     var datas = ArrayList<ExchangeRateData>()
-    //private val v  = LayoutInflater.from(context)
     private val mCallback = listener
 
         inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
@@ -37,14 +32,8 @@ class ExchangeRateAdapter(private val context: Context, listener:OnItemClick)
                 tvRate.text = item.rate
                 tvChart.setOnClickListener {
                     mCallback.onClick(item)
-                    //Toast.makeText(context, "text",Toast.LENGTH_SHORT).show()
-                    //val slidePanel : SlidingUpPanelLayout = v.findViewById(R.id.slidePanel)
-                    //slidePanel.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
-                    //LayoutInflater(context).inflate(R.layout.activity_main)
                 }
             }
-
-
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

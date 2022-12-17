@@ -3,9 +3,8 @@ package com.example.investingdisplay
 import android.util.Log
 import org.jsoup.Jsoup
 
-class ExchangeRateDateCrawler : Crawler() {
+class ExchangeRateDateCrawler {
 
-    override var url: String = "https://finance.naver.com/marketindex/exchangeList.naver"
     private val naverFinanceUrl = "https://finance.naver.com/marketindex/"
 
     fun crawlDate():String{

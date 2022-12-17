@@ -2,16 +2,12 @@ package com.example.investingdisplay
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import org.jsoup.Jsoup
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
-class ExchangeRateCrawler : Crawler() {
+class FacadeExchangeRateCrawler {
 
-    override var url: String = "https://finance.naver.com/marketindex/exchangeList.naver"
     var exchangeRateImageCrawler = ExchangeRateImageCrawler();
     var exchangeRateDateCrawler =ExchangeRateDateCrawler();
-    var exchangeRateNameCrawler=ExchangeRateNameCrawler();
+    var exchangeRateInfoCrawler=ExchangeRateInfoCrawler();
     var tempDataList = ArrayList<ExchangeRateData>();
     var dataList=ArrayList<ExchangeRateData>();
     var date:String="";
@@ -20,7 +16,7 @@ class ExchangeRateCrawler : Crawler() {
     @RequiresApi(Build.VERSION_CODES.O)
     fun startCrawling(){
         tempDataList=exchangeRateImageCrawler.getDataList();
-        dataList=exchangeRateNameCrawler.getDataList(tempDataList);
+        dataList=exchangeRateInfoCrawler.getDataList(tempDataList);
         date=exchangeRateDateCrawler.crawlDate();
         standard=exchangeRateDateCrawler.crawlStandard();
     }

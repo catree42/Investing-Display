@@ -6,26 +6,14 @@ import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.TableRow
-import android.widget.TextView
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.createBitmap
-import androidx.recyclerview.widget.RecyclerView
 import com.example.investingdisplay.databinding.ActivityMainBinding
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
-import org.jsoup.Jsoup
 import java.io.BufferedInputStream
-import java.io.FileOutputStream
-import java.io.InputStream
 import java.net.URL
-import java.net.URLConnection
 
-
-class MainActivity : AppCompatActivity(), OnItemClick {
+class ExchangeRateActivity : AppCompatActivity(), ExchangeRateOnItemClick {
     private var model: ExchangeRateModel? = null
     private var modelData: ExchangeRateData? = null    //어떤 환율인지 담을 modelData
     private lateinit var binding: ActivityMainBinding
@@ -86,7 +74,6 @@ class MainActivity : AppCompatActivity(), OnItemClick {
             matrix,
             false
         )
-        //val temp = Bitmap.createBitmap(imgBitmap,0,0,100,200)
         runOnUiThread { binding.ivChart.setImageBitmap(temp) }
     }
 
@@ -107,14 +94,12 @@ class MainActivity : AppCompatActivity(), OnItemClick {
     }
 
     fun setDateStandard() {
-//        model?.setDate()
-//        model?.setStandard()
         runOnUiThread { binding.tvDate.text = model?.date }
         runOnUiThread { binding.tvStandard.text = model?.standard }
     }
 
     private fun initRecycler() {
-        exchangeRateAdapter = ExchangeRateAdapter(this@MainActivity, this)
+        exchangeRateAdapter = ExchangeRateAdapter(this@ExchangeRateActivity, this)
         binding.rvExchangeRate.adapter = exchangeRateAdapter
 
         exchangeRateAdapter.datas = model?.dataList!!

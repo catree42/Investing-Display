@@ -1,5 +1,5 @@
 package com.example.investingdisplay
 
-interface OnItemClick {
+interface ExchangeRateOnItemClick {
      fun onClick(data: ExchangeRateData)
 }

@@ -4,12 +4,8 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.CheckBox
 import android.widget.CompoundButton
-import android.widget.TextView
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.example.investingdisplay.databinding.ActivityCurrencyListSettingBinding
 
@@ -60,7 +56,7 @@ class CurrencyListSettingActivity : AppCompatActivity(){
 
 
         binding.fabList.setOnClickListener(){
-            intent = Intent(this,MainActivity::class.java)
+            intent = Intent(this,ExchangeRateActivity::class.java)
             intent.putExtra("dataList", model.dataList)
             startActivity(intent)
         }

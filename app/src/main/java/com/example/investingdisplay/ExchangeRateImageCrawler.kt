@@ -5,9 +5,8 @@ import androidx.annotation.RequiresApi
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-class ExchangeRateImageCrawler : Crawler(){
+class ExchangeRateImageCrawler {
 
-    override var url: String = "https://finance.naver.com/marketindex/exchangeList.naver"
     private val chartURL = "https://ssl.pstatic.net/imgfinance/chart/marketindex/area"
     private val currencies = arrayOf("USD", "EUR", "JPY", "CNY", "HKD", "TWD", "GBP", "OMR", "CAD", "CHF")
 

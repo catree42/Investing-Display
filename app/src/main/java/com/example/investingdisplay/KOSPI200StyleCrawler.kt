@@ -11,14 +11,14 @@ class KOSPI200StyleCrawler(baseUrl : String, targetID : String, nameOfStock : St
     private val myChartType : Array<String>
     private val myDoc : Document
     private val myName : String
-    private val myImgCrawler : StockMarketImgCrawler
+    private val myImgCrawler : StockMarketImageCrawler
 
     init{
         finalUrl = baseUrl + "sise/sise_index.naver?code=" + targetID
         myChartType = chartType
         myDoc = Jsoup.connect(finalUrl).get()
         myName = nameOfStock
-        myImgCrawler = StockMarketImgCrawler(myDoc)
+        myImgCrawler = StockMarketImageCrawler(myDoc)
     }
 
     private fun getElements(query:String): Elements {

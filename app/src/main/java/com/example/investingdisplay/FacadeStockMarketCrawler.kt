@@ -9,7 +9,7 @@ class FacadeStockMarketCrawler {
     private val foundationUrl = "https://finance.naver.com/"
     private val chartType = arrayOf("day", "day90", "day365", "day1095")
 
-    private val criterionTimeCrawler = CriterionTimeCrawler(foundationUrl)
+    private val stockMarketDateCrawler = StockMarketDateCrawler(foundationUrl)
 
     private val kospiStyleCrawlerList = ArrayList<KOSPIStyleCrawler>()
     private val kospi200StyleCrawlerList =  ArrayList<KOSPI200StyleCrawler>()
@@ -26,7 +26,7 @@ class FacadeStockMarketCrawler {
     }
 
     fun getCriterionTime(): String{
-        criterionTime = criterionTimeCrawler.getCriterionTime()
+        criterionTime = stockMarketDateCrawler.getCriterionTime()
 
         return criterionTime
     }

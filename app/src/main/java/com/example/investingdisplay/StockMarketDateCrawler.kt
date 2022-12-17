@@ -2,7 +2,7 @@ package com.example.investingdisplay
 
 import org.jsoup.Jsoup
 
-class CriterionTimeCrawler(timeLocUrl: String) {
+class StockMarketDateCrawler(timeLocUrl: String) {
     private lateinit var criterionTime : String
     private val myTimeLocUrl : String
 

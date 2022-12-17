@@ -129,7 +129,6 @@ class StockMarketActivity : AppCompatActivity() {
                         matrix,
                         false
                     )
-                    //val temp = Bitmap.createBitmap(imgBitmap,0,0,100,200)
                     runOnUiThread { binding.ivChart.setImageBitmap(temp) }
                 }
             }

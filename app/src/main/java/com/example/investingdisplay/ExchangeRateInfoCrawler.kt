@@ -1,7 +1,20 @@
 package com.example.investingdisplay
 
-class ExchangeRateNameCrawler : Crawler(){
-    override var url: String = "https://finance.naver.com/marketindex/exchangeList.naver"
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
+import org.jsoup.select.Elements
+
+class ExchangeRateInfoCrawler {
+    var url: String = "https://finance.naver.com/marketindex/exchangeList.naver"
+
+    private fun getDoc(): Document {
+        return Jsoup.connect(url).get()
+    }
+
+    fun getElements(query:String): Elements {
+        val doc = getDoc()
+        return doc.select(query)
+    }
 
     private fun crawlName(i:Int):String{
         val name = getElements("body > div > table > tbody > tr:nth-child($i) > td.tit > a")
