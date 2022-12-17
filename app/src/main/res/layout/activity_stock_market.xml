@@ -47,6 +47,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:id="@+id/sm_time"
                         android:background="@drawable/table_title"
                         android:gravity="center"
                         android:text="2022.11.03 14:00(KST) 기준"
@@ -256,6 +257,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/sm_1day"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/table_title"
@@ -265,6 +267,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/sm_3month"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/table_title"
@@ -274,6 +277,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/sm_1year"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/table_title"
@@ -282,6 +286,7 @@
                     android:textSize="@dimen/page_title_text_size"
                     android:textStyle="bold" />
                 <TextView
+                    android:id="@+id/sm_3year"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/table_title"

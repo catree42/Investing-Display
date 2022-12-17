@@ -54,13 +54,13 @@ class MainActivity : AppCompatActivity(), OnItemClick {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setModel() {
         model = ExchangeRateModel()
-        setDateStandard()
         if (intent.getSerializableExtra("dataList") as ArrayList<ExchangeRateData>? != null) {
             model?.dataList =
                 (intent.getSerializableExtra("dataList") as ArrayList<ExchangeRateData>?)!!
         } else {
             model?.setDataList()
         }
+        setDateStandard()
     }
 
     private fun drawChart() {
@@ -159,5 +159,4 @@ class MainActivity : AppCompatActivity(), OnItemClick {
         }
     }
 }
-
 
